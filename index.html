@@ -13,46 +13,166 @@
 
     <section id="overview">
         <h2>Project Overview</h2>
-        <p>This project is a comprehensive showcase of a mixed-signal PCB design, aimed at demonstrating advanced hardware engineering skills in a practical setting.</p>
+        <p>
+            This project entailed the development of a mixed-signal Printed Circuit Board (PCB), beginning with system design and component selection. The process was methodical, focusing on identifying and selecting appropriate parts to meet the design specifications and functional requirements of the PCB.
+        </p>
+        <p>
+            The schematic design was executed using KiCAD 7, allowing for detailed and accurate representation of the electronic circuits. This phase covered critical subsystems including the power supply, Microcontroller Unit (MCU), Analog-to-Digital Converter (ADC), and Digital-to-Analog Converter (DAC).
+        </p>
+        <p>
+            Following the schematic design, circuit simulation was performed with LTspice. This step was crucial for verifying the circuit's behavior and ensuring its operational integrity, allowing for adjustments and optimizations prior to physical prototyping.
+        </p>
+        <p>
+            The PCB design phase involved the layout and routing of the board, using the schematics as a guide. This stage required careful planning to optimize the placement of components and the routing of traces to ensure functionality and reliability of the final product.
+        </p>
+        <p>
+            The final step in the design process was the preparation of manufacturing files, specifically Gerber and Drill files. These files are essential for the fabrication of the PCB and represent the culmination of the design and simulation efforts.
+        </p>
+        <p>
+            Educational resources, particularly a course from Phil's Lab, were utilized throughout the project. This course provided valuable insights and knowledge, contributing significantly to the project's success. More information about the course can be found <a href="https://phils-lab-shop.fedevel.education/itemDetail.html?itemtype=course&dbid=1606477016678&instrid=us-east-2_Vw1KnTvTs:107c257d-31cc-430a-95d7-3c5d70c578e0">here</a>.
+        </p>
     </section>
 
     <section id="usb">
-        <h2>Why USB 2.0?</h2>
-        <p>The choice of USB 2.0 is driven by the project's focus on low-frequency applications within the audio band, where high data transfer rates are not crucial. USB 2.0 is sufficient for our needs of data storage and transfer. Additionally, as a bus-powered device, USB Type-C is chosen for its lower power consumption, aligning with the project's efficiency goals.</p>
+        <h2>USB Type-C Interface</h2>
+        <img src="/assets/usb.png" alt="USB Type-C Schematic">
+        <p>
+            The USB Type-C interface on this PCB is designed with a focus on functionality and efficiency for low-frequency signal applications. In the context of USB 2.0 standards, our design aims to optimize data transfer rates within the audio band, negating the necessity for the more complex USB 3.x infrastructure.
+        </p>
+        <p>
+            The USB-C connector (J201) facilitates power delivery and data transmission, leveraging the versatility of a reversible connection. The VBUS line, which supplies power to the device, is directly connected to the USB-C receptacle, ensuring a stable power source for the system. To maintain signal integrity, USB data lines (D+ and D-) are routed through a series of passive components that include ESD protection diodes (U201) and pull-up resistors (R205, R206). These protection diodes safeguard the circuit from electrostatic discharge events, which are critical for the longevity and reliability of the USB interface.
+        </p>
+        <p>
+            A common-mode choke (FL201) is introduced in the signal path to filter out common-mode noise, thus enhancing the EMC performance of the device. This is particularly important in mixed-signal applications where digital noise can adversely affect analog signal quality. The chosen common-mode choke presents an impedance of 90Ω, which is a suitable value to mitigate potential interference without compromising the USB 2.0 signal integrity.
+        </p>
+        <p>
+            The USB 2.0 data lines are also equipped with a pull-up resistor network, which is crucial for establishing the presence of a high-speed device when connecting to a host. This configuration adheres to the USB 2.0 specification and ensures proper enumeration and communication with the USB host controller.
+        </p>
     </section>
 
     <section id="mcu">
-        <h2>Microcontroller Unit (MCU)</h2>
-        <p>The chosen MCU suits the project's low-frequency requirements perfectly. The implementation of a Serial Wire Debug (SWD) interface allows for efficient debugging and programming, which is vital for robust hardware development.</p>
+        <h2>Microcontroller Unit (STM32)</h2>
+        <img src="/assets/mcu.png" alt="MCU Schematic">
+        <p>
+            The centerpiece of our PCB is the STM32F1 series microcontroller, selected for its balance of processing power, peripheral availability, and energy efficiency. Critical to our application, this MCU provides the necessary computational capabilities while maintaining a low power footprint, essential for our bus-powered design.
+        </p>
+        <p>
+            The MCU is powered through a network of decoupling capacitors (C200-C207) that serve to filter noise across a spectrum of frequencies. These capacitors ensure that the power supply to the MCU is clean, which is crucial for maintaining the integrity of the analog signals being processed. The capacitors are placed in close proximity to the MCU to minimize inductive loops and provide immediate charge reservoirs for transient current demands.
+        </p>
+        <p>
+            The 16 MHz crystal oscillator, along with its loading capacitors (C208, C209), provides a stable clock source for the MCU. This frequency was chosen for its commonality and the ease of deriving both high-speed and low-power peripheral clocks as needed for various functions of the microcontroller.
+        </p>
+        <p>
+            The MCU's I/O pins are meticulously assigned specific roles. The USB data lines (PA11, PA12) are directly connected to the MCU, facilitating the USB 2.0 communication. SPI lines (including SPI2_NSS, SPI2_SCK, SPI2_MISO, SPI2_MOSI) are interfaced with external peripherals for high-speed data transfer. The analog pins (such as PA0 for ADC and PA4 for DAC) are dedicated to analog signal tasks, reflecting the mixed-signal nature of the board.
+        </p>
+        <p>
+            The SWD interface (SWDIO, SWCLK) is allocated for programming and debugging the MCU. The NRST pin is pulled high through a resistor (R200), but can be driven low for a system reset, providing a means for manual or programmed reset sequences.
+        </p>
+        <img src="/assets/pinout.png" alt="MCU Pin Out">
+        <p>
+            The STM32CubeIDE was utilized for the initial configuration and pin planning of the MCU. This integrated development environment provides a user-friendly graphical tool to assign pin functions, set up peripheral configurations, and generate initialization code, streamlining the development process. The IDE's pinout planning tool was especially useful in visualizing the complex pin assignments and ensuring that all peripherals were correctly configured without conflict.
+        </p>
     </section>
 
     <section id="power-supply">
         <h2>Power Supply Design</h2>
-        <p>The digital circuitry is powered by a switching supply for its efficiency, while the analog circuitry utilizes an LDO regulator to minimize noise, ensuring high-quality signal processing.</p>
+        <img src="/assets/power.png" alt="Power Supply Schematic">
+        <p>
+            The power supply circuitry is bifurcated into two distinct sections: one catering to the analog components and the other to the digital circuitry of the PCB. This separation is critical to minimize noise interference between the two types of circuitry.
+        </p>
+        <p>
+            The digital supply is derived from the VBUS line, which originates from the USB Type-C connector. The VBUS power first passes through an input filtering stage consisting of a ferrite bead (L100) and capacitors (C100, C101) to suppress high-frequency noise. This filtered supply is then directed to a buck converter (U100), which steps down the voltage to a regulated +3.3V, suitable for powering the digital components. The buck converter's output is further smoothed by a capacitor (C104) to ensure a clean and stable power output. The switching frequency and feedback components (R101, R102) are selected to maintain optimal efficiency and voltage regulation.
+        </p>
+        <p>
+            For the analog supply, a linear regulator (U101) is utilized, taking input from the same filtered VBUS line. The linear regulator provides a clean +3.3V, specifically for the analog components, minimizing the ripple and noise typically associated with digital circuitry. Capacitors (C102, C103) on the input and output ensure additional filtering, thus preserving the integrity of the analog signals.
+        </p>
+        <p>
+            The Bias Generator section comprises an operational amplifier (U102) configured to create a stable voltage reference (VCOM). This reference voltage is essential for the proper biasing of analog circuits within the system. Components R104, R105, C107, and C108 form a low-pass filter with a cutoff frequency of approximately 15Hz, ensuring that any high-frequency noise is attenuated, thus maintaining the precision of the bias voltage.
+        </p>
+        <p>
+            An LED (D100) serves as a visual indicator of power status, connected through a current-limiting resistor (R103) to ensure proper LED operation without excessive current draw.
+        </p>
+        <p>
+            The power supply design is a testament to the attention to detail in this project, ensuring that all system components receive clean, stable power, which is paramount for the accurate function of both the digital and analog domains.
+        </p>
     </section>
 
-    <section id="adc-dac">
-        <h2>ADC and DAC Considerations</h2>
-        <p>Both the ADC and DAC are designed with ESD protection and anti-aliasing filters to maintain signal integrity. The selection criteria for these components include a minimum of 12-bit width and a sampling rate of 40 kHz. This is in line with the Nyquist theorem, as the maximum frequency in the audio band is 20 kHz, necessitating a minimum sampling rate of double that frequency for accurate signal reproduction.</p>
+    <section id="adc">
+        <h2>Analog-to-Digital Conversion</h2>
+        <img src="/assets/adc1.png" alt="ADC Schematic">
+        <img src="/assets/adc2.png" alt="ADC Schematic">
+        <p>
+            The ADC subsystem is a crucial element of the board's mixed-signal capabilities, enabling the conversion of analog signals into digital form for further processing. The design features a 14-bit Successive Approximation Register (SAR) ADC, selected for its high resolution and sample-and-hold capabilities, which are ideal for precision measurements within the audio band.
+        </p>
+        <p>
+            The analog front-end consists of an input stage with a BNC connector, facilitating easy and secure connection to external analog sources. This stage is equipped with a PED35D3V3UBA,1.15 ESD protection diode, ensuring the longevity of the device by safeguarding against electrostatic discharge. Additionally, the input passes through a series resistor (RJ300) and an RF filter, which attenuates unwanted high-frequency noise above 1.3 MHz.
+        </p>
+        <p>
+            The signal is then processed through a buffer amplifier (U300), which uses a MCP6001 operational amplifier known for its rail-to-rail output and low bias currents. The buffer helps to present a low impedance to the subsequent stages and is followed by a high-pass filter to eliminate DC offset and low-frequency drift.
+        </p>
+        <p>
+            The conditioned signal is finally passed to a third-order Butterworth low-pass filter with a cut-off frequency of 25 kHz. This anti-aliasing filter, implemented using another MCP6001 op-amp (U301), is essential to ensure that the Nyquist criterion is satisfied and to prevent high-frequency signals from aliasing into the passband of interest.
+        </p>
+        <p>
+            The ADC itself (U303), a ADC14155, is provided with a stable reference voltage (Vref) via a dedicated reference voltage buffer (U302). The Vref is filtered to remove high-frequency noise, assuring the ADC's accuracy and stability. The ADC's power supply is decoupled using capacitors (C314, C315) to minimize noise on the power rails.
+        </p>
+        <p>
+            Digital output from the ADC is interfaced with the microcontroller via an SPI bus, with lines for data output (DOUT), serial clock (SCLK), and chip select (CS). A resistor (R509) ensures the proper selection of the ADC when commanded by the MCU.
+        </p>
     </section>
 
-    <section id="circuit-design">
-        <h2>Circuit Design with LT-Spice</h2>
-        <p>[Placeholder for detailed content on circuit design and LT-Spice simulation]</p>
+    <section id="dac">
+        <h2>Digital-to-Analog Converter (DAC)</h2>
+        <img src="/assets/dac.png" alt="DAC Schematic">
+        <p>
+            The DAC section of the design is centered around a high-performance DAC7563DGSR, a 12-bit digital-to-analog converter, which is instrumental for converting digital signals back into analog form. This component was selected for its dual-channel capability, providing two analog outputs, and its integral nonlinearity (INL) which ensures high precision in the conversion process.
+        </p>
+        <p>
+            Power decoupling is achieved through capacitors C400 and C401, which filter out noise from the power supply to ensure a clean and stable voltage for the DAC operations. This is crucial to maintain the fidelity of the analog signals being generated.
+        </p>
+        <p>
+            The DAC is interfaced with the microcontroller through a Serial Peripheral Interface (SPI), with connections for data input (DIN), serial clock (SCLK), and chip select (SYNC). A dedicated line for the DAC's clear function (DAC_NCLR) is provided, enabling the system to reset the DAC output to a known state if necessary.
+        </p>
+        <p>
+            The output from the DAC is processed by an operational amplifier (U400), configured to remove any DC offset and ensure the signal is centered around the op-amp bias. This configuration allows for the full range of the DAC to be utilized effectively. Resistors R402 and R403, along with capacitor C403, form a Butterworth low-pass filter with a cutoff frequency of 25kHz. This filter is crucial for eliminating any high-frequency components that may have been introduced during the digital-to-analog conversion process, which is particularly important for maintaining signal integrity in audio applications.
+        </p>
+        <p>
+            Following the filtering stage, the signal is then sent to a buffer amplifier (U401), another MCP6001, which provides a low output impedance and drives the output connector (BNC) directly. This is vital for ensuring that the analog signal can be transmitted effectively to external devices or systems without degradation.
+        </p>
+        <p>
+            The output BNC connector is protected against electrostatic discharge (ESD) with a PED35D3V3UBA,1.15 diode, safeguarding the DAC's outputs and ensuring that the device's longevity is not compromised by ESD events.
+        </p>
+        <p>
+            In summary, the DAC section is designed with careful consideration for noise suppression, signal integrity, and output protection. This ensures that the digital-to-analog conversion delivers high-quality analog signals suitable for a wide range of applications.
+        </p>
     </section>
 
     <section id="pcb">
-        <h2>PCB Design, Layout, and Routing</h2>
-        <p>[Placeholder for detailed content on PCB design, layout, and routing]</p>
+        <h2>Circuit Design with LT-Spice</h2>
+        <img src="/assets/pcb_3d.gif" alt="PCB 3D Model">
     </section>
 
     <section id="next-steps">
-        <h2>Next Steps: Manufacturing and Development</h2>
-        <p>[Placeholder for content on manufacturing and further development of the board]</p>
+        <h2>Next Steps: Manufacturing and Experimentation</h2>
+        <p>
+            With the design phase of the project successfully concluded, the immediate next step is to proceed with manufacturing. The PCB design has been finalized, and the corresponding Gerber and Drill files have been meticulously prepared, ensuring they adhere to the requisite specifications for production. The manufacturing process will be commissioned with a chosen PCB fabrication house, translating the detailed blueprints into a tangible, functional hardware board.
+        </p>
+        <p>
+            Upon receipt of the manufactured PCBs, the focus will shift to hands-on experimentation and testing. This stage is crucial for verifying the design in real-world conditions, assessing the board's performance, and confirming that it meets the intended functional requirements. Activities will include populating the board with components, soldering, and conducting initial power-up tests followed by extensive functional testing.
+        </p>
+        <p>
+            The experimentation phase will also involve developing and refining firmware that interfaces with the board's capabilities. Although the design is expected to function as intended, this phase allows for exploring the full operational range of the board, tweaking parameters, and optimizing performance based on empirical data.
+        </p>
+        <p>
+            In parallel with technical testing, there will be opportunities for creative exploration, utilizing the board as a signal generator and analyzer, and implementing it in various practical applications. This experiential phase is not only a testament to the project's success but also an invaluable learning experience, providing insights that can inform future projects.
+        </p>
+        <p>
+            Completing the manufacturing and entering the experimentation phase marks the culmination of a comprehensive journey from concept to creation, embodying the essence of hands-on engineering and design.
+        </p>
     </section>
 
     <footer>
-        <p>&copy; [Your Name/Year]. All Rights Reserved.</p>
+        <p>&copy; Mohamed Hambouta 2024. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
