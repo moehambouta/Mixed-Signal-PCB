@@ -1,6 +1,6 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
+    v2.0 | 20110126
+    License: none (public domain)
 */
 
 html, body, div, span, applet, object, iframe,
@@ -95,6 +95,7 @@ header#header {
     text-align: center;
     margin: 20px 0;
     font-size: 2rem;
+    padding: 1rem 0;
 }
 
 section {
@@ -123,5 +124,51 @@ section img, section video {
 footer {
     text-align: center;
     padding: 20px;
-    border-top: 2px solid #000;
+    border-top: 1px solid #000;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 0;
+    }
+
+    nav#navbar {
+        text-align: center;
+        background-color: #333;
+        padding-inline: 0;
+    }
+
+    nav#navbar ul li:nth-child(1) a {
+        color: #fff;
+    }
+
+    nav#navbar ul li:nth-child(2) {
+        display: none;
+    }
+
+    nav#navbar ul li:nth-child(3) {
+        display: none;
+    }
+
+    nav#navbar ul li {
+        padding: 10px 0;
+    }
+
+    header#header {
+        margin: 10px 0;
+        font-size: 1.5rem;
+    }
+
+    section {
+        padding: 10px;
+    }
+
+    section h2 {
+        font-size: 1.2rem;
+    }
+
+    img, video {
+        height: auto;
+        max-width: 100%;
+    }
 }
