@@ -35,7 +35,7 @@
 
     <section id="usb">
         <h2>USB Type-C Interface</h2>
-        <img src="/assets/usb.png" alt="USB Type-C Schematic">
+        <img src="/docs/assets/imagesusb.png" alt="USB Type-C Schematic">
         <p>
             The USB Type-C interface on this PCB is designed with a focus on functionality and efficiency for low-frequency signal applications. In the context of USB 2.0 standards, our design aims to optimize data transfer rates within the audio band, negating the necessity for the more complex USB 3.x infrastructure.
         </p>
@@ -52,7 +52,7 @@
 
     <section id="mcu">
         <h2>Microcontroller Unit (STM32)</h2>
-        <img src="/assets/mcu.png" alt="MCU Schematic">
+        <img src="/docs/assets/imagesmcu.png" alt="MCU Schematic">
         <p>
             The centerpiece of our PCB is the STM32F1 series microcontroller, selected for its balance of processing power, peripheral availability, and energy efficiency. Critical to our application, this MCU provides the necessary computational capabilities while maintaining a low power footprint, essential for our bus-powered design.
         </p>
@@ -68,7 +68,7 @@
         <p>
             The SWD interface (SWDIO, SWCLK) is allocated for programming and debugging the MCU. The NRST pin is pulled high through a resistor (R200), but can be driven low for a system reset, providing a means for manual or programmed reset sequences.
         </p>
-        <img src="/assets/pinout.png" alt="MCU Pin Out">
+        <img src="/docs/assets/imagespinout.png" alt="MCU Pin Out">
         <p>
             The STM32CubeIDE was utilized for the initial configuration and pin planning of the MCU. This integrated development environment provides a user-friendly graphical tool to assign pin functions, set up peripheral configurations, and generate initialization code, streamlining the development process. The IDE's pinout planning tool was especially useful in visualizing the complex pin assignments and ensuring that all peripherals were correctly configured without conflict.
         </p>
@@ -76,7 +76,7 @@
 
     <section id="power-supply">
         <h2>Power Supply Design</h2>
-        <img src="/assets/power.png" alt="Power Supply Schematic">
+        <img src="/docs/assets/imagespower.png" alt="Power Supply Schematic">
         <p>
             The power supply circuitry is bifurcated into two distinct sections: one catering to the analog components and the other to the digital circuitry of the PCB. This separation is critical to minimize noise interference between the two types of circuitry.
         </p>
@@ -99,8 +99,8 @@
 
     <section id="adc">
         <h2>Analog-to-Digital Conversion</h2>
-        <img src="/assets/adc1.png" alt="ADC Schematic">
-        <img src="/assets/adc2.png" alt="ADC Schematic">
+        <img src="/docs/assets/imagesadc1.png" alt="ADC Schematic">
+        <img src="/docs/assets/imagesadc2.png" alt="ADC Schematic">
         <p>
             The ADC subsystem is a crucial element of the board's mixed-signal capabilities, enabling the conversion of analog signals into digital form for further processing. The design features a 14-bit Successive Approximation Register (SAR) ADC, selected for its high resolution and sample-and-hold capabilities, which are ideal for precision measurements within the audio band.
         </p>
@@ -123,7 +123,7 @@
 
     <section id="dac">
         <h2>Digital-to-Analog Converter (DAC)</h2>
-        <img src="/assets/dac.png" alt="DAC Schematic">
+        <img src="/docs/assets/imagesdac.png" alt="DAC Schematic">
         <p>
             The DAC section of the design is centered around a high-performance DAC7563DGSR, a 12-bit digital-to-analog converter, which is instrumental for converting digital signals back into analog form. This component was selected for its dual-channel capability, providing two analog outputs, and its integral nonlinearity (INL) which ensures high precision in the conversion process.
         </p>
@@ -149,7 +149,7 @@
 
     <section id="pcb">
         <h2>Circuit Design with LT-Spice</h2>
-        <img src="/assets/pcb_3d.gif" alt="PCB 3D Model">
+        <img src="/docs/assets/imagespcb_3d.gif" alt="PCB 3D Model">
     </section>
 
     <section id="next-steps">
