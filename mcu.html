@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Signal Hardware Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Designing a Mixed Signal Printed Circuit Board - Part 3 (Microcontroller Unit)</h1>
+        <p>January 8, 2024</p>
+    </header>
+
+    <section id="main">
+        <h2>Microcontroller Unit (STM32)</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/mcu.png" alt="MCU Schematic">
+        <p>
+            The centerpiece of our PCB is the STM32F1 series microcontroller, selected for its balance of processing power, peripheral availability, and energy efficiency. Critical to our application, this MCU provides the necessary computational capabilities while maintaining a low power footprint, essential for our bus-powered design.
+        </p>
+        <p>
+            The MCU is powered through a network of decoupling capacitors (C200-C207) that serve to filter noise across a spectrum of frequencies. These capacitors ensure that the power supply to the MCU is clean, which is crucial for maintaining the integrity of the analog signals being processed. The capacitors are placed in close proximity to the MCU to minimize inductive loops and provide immediate charge reservoirs for transient current demands.
+        </p>
+        <p>
+            The 16 MHz crystal oscillator, along with its loading capacitors (C208, C209), provides a stable clock source for the MCU. This frequency was chosen for its commonality and the ease of deriving both high-speed and low-power peripheral clocks as needed for various functions of the microcontroller.
+        </p>
+        <p>
+            The MCU's I/O pins are meticulously assigned specific roles. The USB data lines (PA11, PA12) are directly connected to the MCU, facilitating the USB 2.0 communication. SPI lines (including SPI2_NSS, SPI2_SCK, SPI2_MISO, SPI2_MOSI) are interfaced with external peripherals for high-speed data transfer. The analog pins (such as PA0 for ADC and PA4 for DAC) are dedicated to analog signal tasks, reflecting the mixed-signal nature of the board.
+        </p>
+        <p>
+            The SWD interface (SWDIO, SWCLK) is allocated for programming and debugging the MCU. The NRST pin is pulled high through a resistor (R200), but can be driven low for a system reset, providing a means for manual or programmed reset sequences.
+        </p>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/pinout.png" alt="MCU Pin Out">
+        <p>
+            The STM32CubeIDE was utilized for the initial configuration and pin planning of the MCU. This integrated development environment provides a user-friendly graphical tool to assign pin functions, set up peripheral configurations, and generate initialization code, streamlining the development process. The IDE's pinout planning tool was especially useful in visualizing the complex pin assignments and ensuring that all peripherals were correctly configured without conflict.
+        </p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

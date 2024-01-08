@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Signal Hardware Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Designing a Mixed Signal Printed Circuit Board - Part 5 (Analog to Digital Converter)</h1>
+        <p>January 8, 2024</p>
+    </header>
+
+    <section id="main">
+        <h2>Analog-to-Digital Converter (ADC)</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/adc1.png" alt="ADC Schematic">
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/adc2.png" alt="ADC Schematic">
+        <p>
+            The ADC subsystem is a crucial element of the board's mixed-signal capabilities, enabling the conversion of analog signals into digital form for further processing. The design features a 14-bit Successive Approximation Register (SAR) ADC, selected for its high resolution and sample-and-hold capabilities, which are ideal for precision measurements within the audio band.
+        </p>
+        <p>
+            The analog front-end consists of an input stage with a BNC connector, facilitating easy and secure connection to external analog sources. This stage is equipped with a PED35D3V3UBA,1.15 ESD protection diode, ensuring the longevity of the device by safeguarding against electrostatic discharge. Additionally, the input passes through a series resistor (RJ300) and an RF filter, which attenuates unwanted high-frequency noise above 1.3 MHz.
+        </p>
+        <p>
+            The signal is then processed through a buffer amplifier (U300), which uses a MCP6001 operational amplifier known for its rail-to-rail output and low bias currents. The buffer helps to present a low impedance to the subsequent stages and is followed by a high-pass filter to eliminate DC offset and low-frequency drift.
+        </p>
+        <p>
+            The conditioned signal is finally passed to a third-order Butterworth low-pass filter with a cut-off frequency of 25 kHz. This anti-aliasing filter, implemented using another MCP6001 op-amp (U301), is essential to ensure that the Nyquist criterion is satisfied and to prevent high-frequency signals from aliasing into the passband of interest.
+        </p>
+        <p>
+            The ADC itself (U303), a ADC14155, is provided with a stable reference voltage (Vref) via a dedicated reference voltage buffer (U302). The Vref is filtered to remove high-frequency noise, assuring the ADC's accuracy and stability. The ADC's power supply is decoupled using capacitors (C314, C315) to minimize noise on the power rails.
+        </p>
+        <p>
+            Digital output from the ADC is interfaced with the microcontroller via an SPI bus, with lines for data output (DOUT), serial clock (SCLK), and chip select (CS). A resistor (R509) ensures the proper selection of the ADC when commanded by the MCU.
+        </p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

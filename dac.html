@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Signal Hardware Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Designing a Mixed Signal Printed Circuit Board - Part 6 (Digital to Analog Converter)</h1>
+        <p>January 8, 2024</p>
+    </header>
+
+    <section id="main">
+        <h2>Digital-to-Analog Converter (DAC)</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/dac.png" alt="DAC Schematic">
+        <p>
+            The DAC section of the design is centered around a high-performance DAC7563DGSR, a 12-bit digital-to-analog converter, which is instrumental for converting digital signals back into analog form. This component was selected for its dual-channel capability, providing two analog outputs, and its integral nonlinearity (INL) which ensures high precision in the conversion process.
+        </p>
+        <p>
+            Power decoupling is achieved through capacitors C400 and C401, which filter out noise from the power supply to ensure a clean and stable voltage for the DAC operations. This is crucial to maintain the fidelity of the analog signals being generated.
+        </p>
+        <p>
+            The DAC is interfaced with the microcontroller through a Serial Peripheral Interface (SPI), with connections for data input (DIN), serial clock (SCLK), and chip select (SYNC). A dedicated line for the DAC's clear function (DAC_NCLR) is provided, enabling the system to reset the DAC output to a known state if necessary.
+        </p>
+        <p>
+            The output from the DAC is processed by an operational amplifier (U400), configured to remove any DC offset and ensure the signal is centered around the op-amp bias. This configuration allows for the full range of the DAC to be utilized effectively. Resistors R402 and R403, along with capacitor C403, form a Butterworth low-pass filter with a cutoff frequency of 25kHz. This filter is crucial for eliminating any high-frequency components that may have been introduced during the digital-to-analog conversion process, which is particularly important for maintaining signal integrity in audio applications.
+        </p>
+        <p>
+            Following the filtering stage, the signal is then sent to a buffer amplifier (U401), another MCP6001, which provides a low output impedance and drives the output connector (BNC) directly. This is vital for ensuring that the analog signal can be transmitted effectively to external devices or systems without degradation.
+        </p>
+        <p>
+            The output BNC connector is protected against electrostatic discharge (ESD) with a PED35D3V3UBA,1.15 diode, safeguarding the DAC's outputs and ensuring that the device's longevity is not compromised by ESD events.
+        </p>
+        <p>
+            In summary, the DAC section is designed with careful consideration for noise suppression, signal integrity, and output protection. This ensures that the digital-to-analog conversion delivers high-quality analog signals suitable for a wide range of applications.
+        </p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

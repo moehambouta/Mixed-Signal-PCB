@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Signal Hardware Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Designing a Mixed Signal Printed Circuit Board - Part 4 (Power)</h1>
+        <p>January 8, 2024</p>
+    </header>
+
+    <section id="main">
+        <h2>Power Supply Design</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/power.png" alt="Power Supply Schematic">
+        <p>
+            The power supply circuitry is bifurcated into two distinct sections: one catering to the analog components and the other to the digital circuitry of the PCB. This separation is critical to minimize noise interference between the two types of circuitry.
+        </p>
+        <p>
+            The digital supply is derived from the VBUS line, which originates from the USB Type-C connector. The VBUS power first passes through an input filtering stage consisting of a ferrite bead (L100) and capacitors (C100, C101) to suppress high-frequency noise. This filtered supply is then directed to a buck converter (U100), which steps down the voltage to a regulated +3.3V, suitable for powering the digital components. The buck converter's output is further smoothed by a capacitor (C104) to ensure a clean and stable power output. The switching frequency and feedback components (R101, R102) are selected to maintain optimal efficiency and voltage regulation.
+        </p>
+        <p>
+            For the analog supply, a linear regulator (U101) is utilized, taking input from the same filtered VBUS line. The linear regulator provides a clean +3.3V, specifically for the analog components, minimizing the ripple and noise typically associated with digital circuitry. Capacitors (C102, C103) on the input and output ensure additional filtering, thus preserving the integrity of the analog signals.
+        </p>
+        <p>
+            The Bias Generator section comprises an operational amplifier (U102) configured to create a stable voltage reference (VCOM). This reference voltage is essential for the proper biasing of analog circuits within the system. Components R104, R105, C107, and C108 form a low-pass filter with a cutoff frequency of approximately 15Hz, ensuring that any high-frequency noise is attenuated, thus maintaining the precision of the bias voltage.
+        </p>
+        <p>
+            An LED (D100) serves as a visual indicator of power status, connected through a current-limiting resistor (R103) to ensure proper LED operation without excessive current draw.
+        </p>
+        <p>
+            The power supply design is a testament to the attention to detail in this project, ensuring that all system components receive clean, stable power, which is paramount for the accurate function of both the digital and analog domains.
+        </p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

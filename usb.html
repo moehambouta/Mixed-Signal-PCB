@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Signal Hardware Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Designing a Mixed Signal Printed Circuit Board - Part 1 (Introduction)</h1>
+        <p>January 8, 2024</p>
+    </header>
+
+    <section id="main">
+        <h2>USB Type-C Interface</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/usb.png" alt="USB Type-C Schematic">
+        <p>
+            The USB Type-C interface on this PCB is designed with a focus on functionality and efficiency for low-frequency signal applications. In the context of USB 2.0 standards, our design aims to optimize data transfer rates within the audio band, negating the necessity for the more complex USB 3.x infrastructure.
+        </p>
+        <p>
+            The USB-C connector (J201) facilitates power delivery and data transmission, leveraging the versatility of a reversible connection. The VBUS line, which supplies power to the device, is directly connected to the USB-C receptacle, ensuring a stable power source for the system. To maintain signal integrity, USB data lines (D+ and D-) are routed through a series of passive components that include ESD protection diodes (U201) and pull-up resistors (R205, R206). These protection diodes safeguard the circuit from electrostatic discharge events, which are critical for the longevity and reliability of the USB interface.
+        </p>
+        <p>
+            A common-mode choke (FL201) is introduced in the signal path to filter out common-mode noise, thus enhancing the EMC performance of the device. This is particularly important in mixed-signal applications where digital noise can adversely affect analog signal quality. The chosen common-mode choke presents an impedance of 90Ω, which is a suitable value to mitigate potential interference without compromising the USB 2.0 signal integrity.
+        </p>
+        <p>
+            The USB 2.0 data lines are also equipped with a pull-up resistor network, which is crucial for establishing the presence of a high-speed device when connecting to a host. This configuration adheres to the USB 2.0 specification and ensures proper enumeration and communication with the USB host controller.
+        </p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
