@@ -148,6 +148,11 @@ section img, section video {
 #main {
     min-height: calc(100vh - 650px);
     margin-bottom: 60px;
+    line-height: 1.75;
+}
+
+#main p {
+    margin-bottom: 16px;
 }
 
 #main p:last-child {

@@ -14,24 +14,23 @@
 
     <section id="main">
         <h2>Introduction</h2>
-        <p>
-            This project entailed the development of a mixed-signal Printed Circuit Board (PCB), beginning with system design and component selection. The process was methodical, focusing on identifying and selecting appropriate parts to meet the design specifications and functional requirements of the PCB.
-        </p>
-        <p>
-            The schematic design was executed using KiCAD 7, allowing for detailed and accurate representation of the electronic circuits. This phase covered critical subsystems including the power supply, Microcontroller Unit (MCU), Analog-to-Digital Converter (ADC), and Digital-to-Analog Converter (DAC).
-        </p>
-        <p>
-            Following the schematic design, circuit simulation was performed with LTspice. This step was crucial for verifying the circuit's behavior and ensuring its operational integrity, allowing for adjustments and optimizations prior to physical prototyping.
-        </p>
-        <p>
-            The PCB design phase involved the layout and routing of the board, using the schematics as a guide. This stage required careful planning to optimize the placement of components and the routing of traces to ensure functionality and reliability of the final product.
-        </p>
-        <p>
-            The final step in the design process was the preparation of manufacturing files, specifically Gerber and Drill files. These files are essential for the fabrication of the PCB and represent the culmination of the design and simulation efforts.
-        </p>
-        <p>
-            Educational resources, particularly a course from Phil's Lab, were utilized throughout the project. This course provided valuable insights and knowledge, contributing significantly to the project's success. More information about the course can be found <a href="https://phils-lab-shop.fedevel.education/itemDetail.html?itemtype=course&dbid=1606477016678&instrid=us-east-2_Vw1KnTvTs:107c257d-31cc-430a-95d7-3c5d70c578e0">here</a>.
-        </p>
+        <p>This project entails the development of a mixed signal PCB, beginning with system design and component selection. The process was methodical, focusing on identifying and selecting appropriate parts to meet the design specifications and functional requirements of the PCB.</p>
+
+        <h3>Required Specifications: </h3>
+        <ul>
+            <li>STM32F103C8T6 MCU</li>
+            <li>USB 2.0 FS</li>
+            <li>Switching regulator: TLV62569DBV</li>
+            <li>LDO regulator: HT7533-I</li>
+            <li>ADC141S626CIMM/NOPB - 14 bits, 50 kSPS to 250 kSPS, differential</li>
+            <li>DAC7563SDGSR - 12 bits, single-ended</li>
+        </ul>
+
+        <p>The STM32F103C8T6 MCU is chosen for its widespread use, low power requirement, and compatibility with USB 2.0 FS, ensured through an SPI interface. The MCU's flash and RAM capacities are well-suited for the project's demands.</p>
+        <p>Power considerations are crucial, with digital components requiring up to 250mA and analog parts up to 50mA. A dual-regulator system is implemented to accommodate these needs efficiently.</p>
+        <p>The TLV62569DBV switching regulator is tasked with converting the +5V input to +3.3V for digital circuits, chosen for its high efficiency and optimal switching frequency. The HT7533-I LDO regulator caters to the analog supply with a minimal voltage differential, catering to low noise requirements.</p>
+        <p>Lastly, the ADC and DAC are selected for their single-channel capabilities, adequate resolution, and SPI communication compatibility, rounding off the PCB's design to cover the full audio spectrum.</p>
+        <p>The completion of this project was made possible through a comprehensive course by Phil's Lab, which provided a foundational understanding and practical skills in hardware design. A special thanks to the course for guiding the project from concept to reality. Discover more about the course at <a href="https://phils-lab-shop.fedevel.education/itemDetail.html?itemtype=course&dbid=1606477016678&instrid=us-east-2_Vw1KnTvTs:107c257d-31cc-430a-95d7-3c5d70c578e0" target="_blank">Phil's Lab</a>.</p>
 
         <p>
             <span>Next post: </span>
