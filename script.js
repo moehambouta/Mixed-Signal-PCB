@@ -22,14 +22,32 @@ document.addEventListener('DOMContentLoaded', function() {
         <section id="index">
             <p>Links to the other parts in this series:</p>
             <ol type="1">
-                <li><a href="index.html">Introduction</a></li>
-                <li><a href="usb.html">USB Type-C Interface</a></li>
-                <li><a href="mcu.html">Microcontroller Unit (STM32)</a></li>
-                <li><a href="power.html">Power Supply Design</a></li>
-                <li><a href="adc.html">Analog-to-Digital Converter (ADC)</a></li>
-                <li><a href="dac.html">Digital-to-Analog Converter (DAC)</a></li>
-                <li><a href="pcb.html">Final PCB 3D Model</a></li>
-                <li><a href="future.html">Next Steps: Manufacturing and Experimentation</a></li>
+                <li><a href="index.html">Introduction to Mixed-Siganl PCB Design</a></li>
+                <li>
+                    <a href="power.html">Power Management Architecture</a>
+                    <ul>
+                        <li>Input Filtering and Power Supply Selection</li>
+                        <li>Buck Converter Implementation</li>
+                        <li>LDO Regulator for Analog Stability</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="mcu.html">Microcontroller Integration</a>
+                    <ul>
+                        <li>STM32F103C8T6 Features and Configuration</li>
+                        <li>USB 2.0 Full Speed Communication</li>
+                        <li>System Debugging via SWD</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="dsp.html">Signal Processing Capabilities</a>
+                    <ul>
+                        <li>Analog-to-Digital Conversion</li>
+                        <li>Digital-to-Analog Conversion</li>
+                    </ul>
+                </li>
+                <li><a href="pcb.html">PCB Layout, Routing and 3D Model</a></li>
+                <li><a href="final.html">Final Considerations</a></li>
             </ol>
         </section>
     `;

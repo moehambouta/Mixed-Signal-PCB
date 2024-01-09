@@ -31,7 +31,7 @@ html, body {
     height: 100%;
 }
 body {
-	line-height: 1;
+	line-height: 1.75;
     font: 400 16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     margin: 0 auto;
     background: #f9f9f9;
@@ -101,8 +101,6 @@ header#header {
     max-width: 800px;
     margin-inline: auto;
     letter-spacing: -1;
-    line-height: 1.1;
-    margin-bottom: 20px;
 }
 
 header#header h1 {
@@ -116,7 +114,6 @@ section {
     margin-inline: auto;
     margin-bottom: 15px;
     border-radius: 8px;
-    line-height: 1.25;
 }
 
 section h2 {
@@ -148,7 +145,6 @@ section img, section video {
 #main {
     min-height: calc(100vh - 650px);
     margin-bottom: 60px;
-    line-height: 1.75;
 }
 
 #main p {

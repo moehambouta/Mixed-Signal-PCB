@@ -13,7 +13,7 @@
     </header>
 
     <section id="main">
-        <h2>Microcontroller Unit (STM32)</h2>
+        <h2>Microcontroller Integration (STM32)</h2>
         <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/mcu.png" alt="MCU Schematic">
         <p>
             The centerpiece of our PCB is the STM32F1 series microcontroller, selected for its balance of processing power, peripheral availability, and energy efficiency. Critical to our application, this MCU provides the necessary computational capabilities while maintaining a low power footprint, essential for our bus-powered design.
@@ -34,9 +34,25 @@
         <p>
             The STM32CubeIDE was utilized for the initial configuration and pin planning of the MCU. This integrated development environment provides a user-friendly graphical tool to assign pin functions, set up peripheral configurations, and generate initialization code, streamlining the development process. The IDE's pinout planning tool was especially useful in visualizing the complex pin assignments and ensuring that all peripherals were correctly configured without conflict.
         </p>
+
+        <h2>USB Type-C Interface</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/usb.png" alt="USB Type-C Schematic">
+        <p>
+            The USB Type-C interface on this PCB is designed with a focus on functionality and efficiency for low-frequency signal applications. In the context of USB 2.0 standards, our design aims to optimize data transfer rates within the audio band, negating the necessity for the more complex USB 3.x infrastructure.
+        </p>
+        <p>
+            The USB-C connector (J201) facilitates power delivery and data transmission, leveraging the versatility of a reversible connection. The VBUS line, which supplies power to the device, is directly connected to the USB-C receptacle, ensuring a stable power source for the system. To maintain signal integrity, USB data lines (D+ and D-) are routed through a series of passive components that include ESD protection diodes (U201) and pull-up resistors (R205, R206). These protection diodes safeguard the circuit from electrostatic discharge events, which are critical for the longevity and reliability of the USB interface.
+        </p>
+        <p>
+            A common-mode choke (FL201) is introduced in the signal path to filter out common-mode noise, thus enhancing the EMC performance of the device. This is particularly important in mixed-signal applications where digital noise can adversely affect analog signal quality. The chosen common-mode choke presents an impedance of 90Ω, which is a suitable value to mitigate potential interference without compromising the USB 2.0 signal integrity.
+        </p>
+        <p>
+            The USB 2.0 data lines are also equipped with a pull-up resistor network, which is crucial for establishing the presence of a high-speed device when connecting to a host. This configuration adheres to the USB 2.0 specification and ensures proper enumeration and communication with the USB host controller.
+        </p>
+
         <p>
             <span>Next post: </span>
-            <a href="power.html">Power Supply Design</a>
+            <a href="dsp.html">Signal Processing Capabilities</a>
         </p>
     </section>
     </section>
