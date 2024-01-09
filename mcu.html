@@ -14,7 +14,7 @@
 
     <section id="main">
         <h2>Microcontroller Integration (STM32)</h2>
-        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/mcu.png" alt="MCU Schematic">
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/mcu.png" alt="MCU Schematic">
         <p>
             The centerpiece of our PCB is the STM32F1 series microcontroller, selected for its balance of processing power, peripheral availability, and energy efficiency. Critical to our application, this MCU provides the necessary computational capabilities while maintaining a low power footprint, essential for our bus-powered design.
         </p>
@@ -30,13 +30,13 @@
         <p>
             The SWD interface (SWDIO, SWCLK) is allocated for programming and debugging the MCU. The NRST pin is pulled high through a resistor (R200), but can be driven low for a system reset, providing a means for manual or programmed reset sequences.
         </p>
-        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/pinout.png" alt="MCU Pin Out">
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/pinout.png" alt="MCU Pin Out">
         <p>
             The STM32CubeIDE was utilized for the initial configuration and pin planning of the MCU. This integrated development environment provides a user-friendly graphical tool to assign pin functions, set up peripheral configurations, and generate initialization code, streamlining the development process. The IDE's pinout planning tool was especially useful in visualizing the complex pin assignments and ensuring that all peripherals were correctly configured without conflict.
         </p>
 
         <h2>USB Type-C Interface</h2>
-        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/main/assets/usb.png" alt="USB Type-C Schematic">
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/usb.png" alt="USB Type-C Schematic">
         <p>
             The USB Type-C interface on this PCB is designed with a focus on functionality and efficiency for low-frequency signal applications. In the context of USB 2.0 standards, our design aims to optimize data transfer rates within the audio band, negating the necessity for the more complex USB 3.x infrastructure.
         </p>
