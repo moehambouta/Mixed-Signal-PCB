@@ -150,6 +150,11 @@ section img, section video {
     margin-bottom: 60px;
 }
 
+#main p:last-child {
+    font-style: italic;
+    margin-top: 20px;
+}
+
 footer {
     text-align: center;
     padding: 20px;
