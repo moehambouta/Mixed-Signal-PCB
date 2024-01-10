@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <section id="index">
             <p>Links to the other parts in this series:</p>
             <ol type="1">
-                <li><a href="index.html">Introduction to Mixed-Siganl PCB Design</a></li>
+                <li><a href="index.html">Introduction to Mixed-Signal PCB Design</a></li>
                 <li>
                     <a href="power.html">Power Management Architecture</a>
                     <ul>
