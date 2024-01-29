@@ -22,7 +22,3 @@ To get started with this project, clone the repository and explore the `Schemati
 ## Acknowledgments
 
 Special thanks to Phil's Lab for their course, which significantly contributed to the knowledge and techniques applied in this project. Find the course details [here](https://phils-lab-shop.fedevel.education/itemDetail.html?itemtype=course&dbid=1606477016678&instrid=us-east-2_Vw1KnTvTs:107c257d-31cc-430a-95d7-3c5d70c578e0).
-
----
-
-Enjoy the project? Consider starring the repo and following the blog for updates and more technical deep dives into the world of mixed-signal PCB design.
