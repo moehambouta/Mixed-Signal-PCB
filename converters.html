@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Signal Hardware Design</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Documenting the journey of designing a mixed-signal PCB focused on creating a USB-powered, single-channel, low-frequency signal analyzer and generator.">
+</head>
+<body>
+    <header id="header">
+        <h1>Designing a Mixed Signal Printed Circuit Board - Part 4 (Converters)</h1>
+        <p>January 8, 2024</p>
+    </header>
+
+    <section id="main">
+        <h2>Converters Overview</h2>
+        <p>In our system, precise analog-to-digital and digital-to-analog conversions are crucial. This post will outline the converters used in our design, detailing the ADC and DAC schematics and their respective roles in the signal processing chain.</p>
+
+        <h2>ADC Converter</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/adc_schematic.png" alt="ADC Schematic">
+        <p>We're implementing the ADC141S626, a 14-bit ADC capable of sampling between 50 kSPS to 250 kSPS, featuring differential inputs. Power supply stabilization is handled by decoupling capacitors connected to pins 9 and 10. The ADC communicates with the MCU via SPI, using dedicated lines for MISO, SCK, and NSS. The analog power pin is directly connected to the +3.3V analog line, while the digital I/O receives the same +3.3V.</p>
+
+        <h2>Dedicated VREF Circuitry</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/adc_vref_schematic.png" alt="ADC Vref Schematic">
+        <p>The VREF pin on the ADC is of particular importance, as it determines the precision of conversion. It's supplied by the REF3033 reference voltage source, which is decoupled with capacitors C310 and C311. To further clean the input from the noisy +5V supply, we employ a pie filter network with a cutoff frequency of 319 Hz.</p>
+
+        <h2>Analog Front-End</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/analogue_front_end_1.png" alt="ADC Analogue Front End">
+        <p>The analog front-end serves to match impedances, filter out-of-band noise, and prepare the signal for the ADC. Starting with the BNC input, we incorporate ESD protection and an RF filter consisting of a 1k ohm resistor and a 150pF capacitor, achieving a cutoff frequency of 1.1 MHz. An AC coupling capacitor follows, and a pair of 2.2M ohm resistors set the input impedance at 1.1M. These resistors, along with the coupling capacitor, form a low-frequency RC filter at 1.4 Hz, ensuring the input signal is stable and centered around VCOM.</p>
+
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/analogue_front_end_2.png" alt="ADC Analogue Front End">
+        <p>Before reaching the ADC, the signal passes through a 3rd order Sallen-Key low pass filter, designed to prevent aliasing by filtering frequencies above 25 kHz. This filter is a critical component in maintaining signal integrity during sampling.</p>
+
+        <h2>Digital-to-Analog Converter (DAC)</h2>
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/dac_schematic_1.png" alt="DAC Schematic">
+        <p>Our DAC, the DAC7563SDGSR, is a 12-bit device with an internal reference, offering a simpler setup compared to the ADC. It requires proper decoupling on the reference pin to ensure a stable output. The input power is once again a +3.3V analog line, passing through decoupling capacitors to ensure clean power delivery to the device.</p>
+
+        <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/dac_schematic_2.png" alt="DAC Schematic">
+        <p>The DAC benefits from the same type of 3rd order Butterworth filter used in the ADC circuit, simplifying our BOM and design consistency. The output is set to a range of 0V to +3.3V, with a 50 ohm resistor setting the output impedance, followed by ESD protection, and then routed to the BNC output connector.</p>
+
+        <p>
+            <span>Next post: </span>
+            <a href="pcb.html">Final PCB 3D Model</a>
+        </p>
+    </section>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

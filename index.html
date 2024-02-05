@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mixed Signal Hardware Design</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Documenting the journey of designing a mixed-signal PCB focused on creating a USB-powered, single-channel, low-frequency signal analyzer and generator.">
 </head>
 <body>
     <header id="header">
@@ -14,27 +15,31 @@
 
     <section id="main">
         <h2>Introduction</h2>
-        <p>This project entails the development of a mixed signal PCB, beginning with system design and component selection. The process was methodical, focusing on identifying and selecting appropriate parts to meet the design specifications and functional requirements of the PCB.</p>
+        <p>Throughout my electrical engineering degree, I've come to realize the indispensable value of hands-on experience. Theory and lectures provide the foundation, but it's the application that solidifies understanding and uncovers the depth of the subject matter. This belief prompted me to enroll in Phil's Lab mixed-signal PCB course, a decision that marked the beginning of a journey beyond the classroom. In this series of blog posts, I'll be documenting this journey, detailing the learnings and challenges encountered while developing a "USB-powered, single-channel, low frequency signal analyzer and signal generator."</p>
 
-        <h3>Required Specifications: </h3>
+        <h2>Project Goals and Specifications</h2>
+        <p>The objective was clear: to create a device that's both powered by and communicates through a USB 2.0 interface, targeting the audio band frequency range of 20 Hz to 20 kHz. This bandwidth choice influenced our data rate requirements, leading us to settle on USB Full Speed (FS) mode for its adequacy in handling our projected data throughput without the need for higher transfer rates. By aiming for a sampling rate of 40 kHz—double our highest frequency of interest to adhere to the Nyquist theorem—and opting for an ADC with a 12-bit resolution, we calculated a modest data transfer need of approximately 0.5 Mbits/s.</p>
+
+        <h2>Selecting the Right Components</h2>
+        <p>For the brain of our project, we chose the STM32F103C8T6 microcontroller (MCU) for its simplicity and adequacy in processing power. Its built-in SPI communication capability perfectly matches our needs for interfacing with the ADC and DAC, eliminating the necessity for more complex processing power. Power management required careful consideration; most components on our board operate at +3.3V, necessitating a switch from the USB's +5V supply. This was achieved using a buck converter (TLV62569DBV) for digital circuitry and an LDO regulator (HT7533-1) for analog circuitry, ensuring stable and efficient power distribution across the board.</p>
+
+        <h3>Core Components:</h3>
         <ul>
-            <li>STM32F103C8T6 MCU</li>
-            <li>USB 2.0 FS Communication</li>
-            <li>Switching regulator: TLV62569DBV</li>
-            <li>LDO regulator: HT7533-1</li>
-            <li>ADC141S626CIMM/NOPB - 14 bits, 50 kSPS to 250 kSPS, differential</li>
-            <li>DAC7563SDGSR - 12 bits, single-ended</li>
+            <li>MCU: STM32F103C8T6, chosen for its simplicity and SPI capabilities.</li>
+            <li>LDO Regulator: HT7533-1, for stable +3.3V power to analog components.</li>
+            <li>Switching Regulator: TLV62569DBV, stepping down +5V to +3.3V for digital components.</li>
+            <li>DAC: DAC7563SDGSR, a 12-bit single-ended digital-to-analog converter.</li>
+            <li>ADC: ADC141S626CIMM, a 14-bit differential analog-to-digital converter.</li>
         </ul>
 
-        <p>The STM32F103C8T6 MCU is chosen for its widespread use, low power requirement, and compatibility with USB 2.0 FS, ensured through an SPI interface. The MCU's flash and RAM capacities are well-suited for the project's demands.</p>
-        <p>Power considerations are crucial, with digital components requiring up to 250mA and analog parts up to 50mA. A dual-regulator system is implemented to accommodate these needs efficiently.</p>
-        <p>The TLV62569DBV switching regulator is tasked with converting the +5V input to +3.3V for digital circuits, chosen for its high efficiency and optimal switching frequency. The HT7533-I LDO regulator caters to the analog supply with a minimal voltage differential, catering to low noise requirements.</p>
-        <p>Lastly, the ADC and DAC are selected for their single-channel capabilities, adequate resolution, and SPI communication compatibility, rounding off the PCB's design to cover the full audio spectrum.</p>
-        <p>The completion of this project was made possible through a comprehensive course by Phil's Lab, which provided a foundational understanding and practical skills in hardware design. A special thanks to the course for guiding the project from concept to reality. Discover more about the course at <a href="https://phils-lab-shop.fedevel.education/itemDetail.html?itemtype=course&dbid=1606477016678&instrid=us-east-2_Vw1KnTvTs:107c257d-31cc-430a-95d7-3c5d70c578e0" target="_blank">Phil's Lab</a>.</p>
+        <h2>Looking Ahead</h2>
+        <p>Having outlined the project scope and component rationale, the subsequent posts will delve into the schematics, simulation results, and, ultimately, the PCB design and 3D model. This project not only serves as a testament to the practical application of my degree's teachings but also as a stepping stone towards more complex endeavors.</p>
+
+        <p>A special thanks to Phil for creating an accessible beginner course. It's been an invaluable resource, laying down the groundwork for this and future projects. Discover more about the course at <a href="https://phils-lab-shop.fedevel.education/itemDetail.html?itemtype=course&dbid=1606477016678&instrid=us-east-2_Vw1KnTvTs:107c257d-31cc-430a-95d7-3c5d70c578e0" target="_blank">Phil's Lab</a>.</p>
 
         <p>
             <span>Next post: </span>
-            <a href="power.html">Power Management Architecture</a>
+            <a href="power.html" title="Read about power management architecture in mixed-signal PCB design">Power Supply</a>
         </p>
     </section>
 

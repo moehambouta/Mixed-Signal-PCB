@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mixed Signal Hardware Design</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Documenting the journey of designing a mixed-signal PCB focused on creating a USB-powered, single-channel, low-frequency signal analyzer and generator.">
 </head>
 <body>
     <header id="header">
@@ -15,46 +16,53 @@
     <section id="main">
         <h2>Microcontroller Integration (STM32)</h2>
         <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/mcu.png" alt="MCU Schematic">
-        <p>
-            The centerpiece of our PCB is the STM32F1 series microcontroller, selected for its balance of processing power, peripheral availability, and energy efficiency. Critical to our application, this MCU provides the necessary computational capabilities while maintaining a low power footprint, essential for our bus-powered design.
-        </p>
-        <p>
-            The MCU is powered through a network of decoupling capacitors (C200-C207) that serve to filter noise across a spectrum of frequencies. These capacitors ensure that the power supply to the MCU is clean, which is crucial for maintaining the integrity of the analog signals being processed. The capacitors are placed in close proximity to the MCU to minimize inductive loops and provide immediate charge reservoirs for transient current demands.
-        </p>
-        <p>
-            The 16 MHz crystal oscillator, along with its loading capacitors (C208, C209), provides a stable clock source for the MCU. This frequency was chosen for its commonality and the ease of deriving both high-speed and low-power peripheral clocks as needed for various functions of the microcontroller.
-        </p>
-        <p>
-            The MCU's I/O pins are meticulously assigned specific roles. The USB data lines (PA11, PA12) are directly connected to the MCU, facilitating the USB 2.0 communication. SPI lines (including SPI2_NSS, SPI2_SCK, SPI2_MISO, SPI2_MOSI) are interfaced with external peripherals for high-speed data transfer. The analog pins (such as PA0 for ADC and PA4 for DAC) are dedicated to analog signal tasks, reflecting the mixed-signal nature of the board.
-        </p>
-        <p>
-            The SWD interface (SWDIO, SWCLK) is allocated for programming and debugging the MCU. The NRST pin is pulled high through a resistor (R200), but can be driven low for a system reset, providing a means for manual or programmed reset sequences.
-        </p>
+        <p>In this segment, we detail the microcontroller unit (MCU) schematic centered around the STM32F103CBT6. Our design decisions are rooted in the guidelines provided by ST's AN2867 application note.</p>
+
+        <h3>Power Supply to MCU</h3>
+        <p>The MCU's power is managed through VDD and VDDA pins, fed by a +3.3V supply. A decoupling capacitor, C200, is placed close to the VDD pins to mitigate transient voltage spikes. Following this, each VDD pin is supplied through individual capacitors, C201 to C204, ensuring stable power delivery.</p>
+
+        <h3>Analog Supply and Grounding</h3>
+        <p>Although our final product does not utilize the analog features of the MCU, the VDDA pin is connected as per the datasheet recommendations—filtered and bypassed with capacitors for potential future use. Ground connections are made via the VSS and VSSA pins, tied directly to the system ground.</p>
+
+        <h3>Reset and Boot Configuration</h3>
+        <p>The NRST pin, active-low, is linked to the SWD header, enabling external reset capability. The BOOT0 pin is tied low to default to the programmed MCU behavior, with the option to go high for SWD commands.</p>
+
+        <h3>Clock Configuration</h3>
+        <p>For the clock, we opted for an external 16 MHz crystal oscillator, chosen for its 10 pF load capacitance and 80 Ohms ESR, connected to the HSE_IN and HSE_OUT pins, along with a corresponding feed resistor to ensure stable MCU operation.</p>
+
+        <h2>Pin Mapping and Peripherals</h2>
         <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/pinout.png" alt="MCU Pin Out">
-        <p>
-            The STM32CubeIDE was utilized for the initial configuration and pin planning of the MCU. This integrated development environment provides a user-friendly graphical tool to assign pin functions, set up peripheral configurations, and generate initialization code, streamlining the development process. The IDE's pinout planning tool was especially useful in visualizing the complex pin assignments and ensuring that all peripherals were correctly configured without conflict.
-        </p>
+        <p>Utilizing the STM32CubeIDE, we configured the MCU pinout, influenced by AN4879 for USB applications. The pinout includes:</p>
+
+        <ul>
+            <li>PB13 and PB14 for SWDIO and SWDCLK, respectively, supporting Trace Asynchronous SW Debug.</li>
+            <li>PD0 and PD1 for the high-speed external (HSE) crystal/ceramic resonator.</li>
+            <li>PB6, PB7, and PB8 dedicated to Timer 4 for PWM control of RGB LEDs.</li>
+            <li>SPI1 configured on PA5 and PA6 for ADC input, with PA4 as Hardware NSS.</li>
+            <li>SPI2 for transmission, with PB12 for Hardware NSS and PB13.</li>
+            <li>USB device Full Speed interface on PA11 and PA12 for USB differential pairs.</li>
+        </ul>
+
+        <p>The pinout from STM32CubeIDE is meticulously mapped onto our schematic, with pull-up resistors placed as required by the application notes.</p>
 
         <h2>USB Type-C Interface</h2>
         <img src="https://raw.githubusercontent.com/moehambouta/Mixed-Signal-PCB/website/assets/usb.png" alt="USB Type-C Schematic">
-        <p>
-            The USB Type-C interface on this PCB is designed with a focus on functionality and efficiency for low-frequency signal applications. In the context of USB 2.0 standards, our design aims to optimize data transfer rates within the audio band, negating the necessity for the more complex USB 3.x infrastructure.
-        </p>
-        <p>
-            The USB-C connector (J201) facilitates power delivery and data transmission, leveraging the versatility of a reversible connection. The VBUS line, which supplies power to the device, is directly connected to the USB-C receptacle, ensuring a stable power source for the system. To maintain signal integrity, USB data lines (D+ and D-) are routed through a series of passive components that include ESD protection diodes (U201) and pull-up resistors (R205, R206). These protection diodes safeguard the circuit from electrostatic discharge events, which are critical for the longevity and reliability of the USB interface.
-        </p>
-        <p>
-            A common-mode choke (FL201) is introduced in the signal path to filter out common-mode noise, thus enhancing the EMC performance of the device. This is particularly important in mixed-signal applications where digital noise can adversely affect analog signal quality. The chosen common-mode choke presents an impedance of 90Ω, which is a suitable value to mitigate potential interference without compromising the USB 2.0 signal integrity.
-        </p>
-        <p>
-            The USB 2.0 data lines are also equipped with a pull-up resistor network, which is crucial for establishing the presence of a high-speed device when connecting to a host. This configuration adheres to the USB 2.0 specification and ensures proper enumeration and communication with the USB host controller.
-        </p>
+        <p>Our USB Type-C interface is segmented into three parts, designed with reference to ST's TA0357 application note:</p>
+
+        <ul>
+            <li>The USB Type-C connector itself.</li>
+            <li>ESD protection circuitry for safeguarding against electrostatic discharges.</li>
+            <li>A common mode choke for filtering on the data lines, and a pull-up resistor connected to the MCU, completing the interface.</li>
+        </ul>
+
+        <p>The USB-C connector (J201) facilitates power delivery and data transmission. The VBUS line, which supplies power to the device, is directly connected to the USB-C receptacle, ensuring a stable power source for the system. To maintain signal integrity, USB data lines (D+ and D-) are routed through a series of passive components that include ESD protection diodes (U201) and pull-up resistors (R205, R206). These protection diodes safeguard the circuit from electrostatic discharge events, which are critical for the longevity and reliability of the USB interface.</p>
+
+        <p>A common-mode choke (FL201) is introduced in the signal path to filter out common-mode noise, thus enhancing the EMC performance of the device. This is particularly important in mixed-signal applications where digital noise can adversely affect analog signal quality.</p>
 
         <p>
             <span>Next post: </span>
-            <a href="dsp.html">Signal Processing Capabilities</a>
+            <a href="converters.html">ADC / DAC Converters</a>
         </p>
-    </section>
     </section>
 
     <script src="script.js"></script>

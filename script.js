@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Define the common HTML components
     const navbarHtml = `
         <nav id="navbar">
             <ul>
@@ -22,31 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <section id="index">
             <p>Links to the other parts in this series:</p>
             <ol type="1">
-                <li><a href="index.html">Introduction to Mixed-Signal PCB Design</a></li>
-                <li>
-                    <a href="power.html">Power Management Architecture</a>
-                    <ul>
-                        <li>Input Filtering and Power Supply Selection</li>
-                        <li>Buck Converter Implementation</li>
-                        <li>LDO Regulator for Analog Stability</li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="mcu.html">Microcontroller Integration</a>
-                    <ul>
-                        <li>STM32F103C8T6 Features and Configuration</li>
-                        <li>USB 2.0 Full Speed Communication</li>
-                        <li>System Debugging via SWD</li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="dsp.html">Signal Processing Capabilities</a>
-                    <ul>
-                        <li>Analog-to-Digital Conversion</li>
-                        <li>Digital-to-Analog Conversion</li>
-                    </ul>
-                </li>
-                <li><a href="pcb.html">PCB Layout, Routing and 3D Model</a></li>
+                <li><a href="index.html">Introduction</a></li>
+                <li><a href="power.html">Power Supply</a></li>
+                <li><a href="mcu.html">Microcontroller</a></li>
+                <li><a href="converters.html">ADC / DAC Converters</a></li>
+                <li><a href="pcb.html">PCB Layout / Routing</a></li>
                 <li><a href="final.html">Final Considerations</a></li>
             </ol>
         </section>
