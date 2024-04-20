@@ -1,6 +1,6 @@
 # Mixed Signal PCB Project
 
-This repository contains all the source files for the Mixed Signal PCB Project, an endeavor to design and develop a PCB capable of signal generation and analysis within the audio band. The project is thoroughly documented through a series of blog posts available at [Mixed Signal PCB Project Blog](https://moehambouta.github.io/Mixed-Signal-PCB).
+This repository contains all the source files for the Mixed Signal PCB Project, an endeavor to design and develop a PCB capable of signal generation and analysis within the audio band. The project is thoroughly documented through a series of blog posts available at [Mixed Signal PCB Project Blog](https://www.mohamedhambouta.com/article/36e01b97-5775-4c1d-bf0c-83d208441204).
 
 ## Repository Structure
 
@@ -10,14 +10,6 @@ This repository contains all the source files for the Mixed Signal PCB Project, 
 - `Media` - Images and videos showcasing the PCB and its design process.
 - `PCB` - The KiCAD PCB design file.
 - `Schematics` - Schematic files for each section of the PCB design.
-
-## Website Branch
-
-The `website` branch hosts the HTML, CSS, and image files for the project's [web presentation](https://moehambouta.github.io/Mixed-Signal-PCB).
-
-## Getting Started
-
-To get started with this project, clone the repository and explore the `Schematics` and `PCB` folders to view and modify the design files using KiCAD.
 
 ## Acknowledgments
 
